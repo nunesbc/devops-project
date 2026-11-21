@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Documentação de um ambiente DevOps self-hosted com containers, HTTPS, autenticação, backups e uma aplicação com banco de dados."
+    />
+    <title>Self-hosted Field Lab — Barbara Nunes</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="identity" href="#inicio" aria-label="Início">
+          <span class="identity-mark">BN</span>
+          <span>
+            Barbara Nunes
+            <small>self-hosted field lab</small>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#projeto">Project</a>
+          <a href="#servicos">Services</a>
+          <a href="#aplicacao">Aplications</a>
+          <a href="#metodo">Method</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="kicker">
+              DevOps · 2026/2027
+            </p>
+            <h1>
+              A small ecosystem of services,
+              <em>on its own infrastructure..</em>
+            </h1>
+            <p class="hero-intro">
+              Self-hosted environment project featuring containers, HTTPS, authentication, backups,
+              and an application with a database.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary-button" href="#projeto">
+                Explore the system <span aria-hidden="true">↓</span>
+              </a>
+              <a
+                class="text-link"
+                href="https://github.com/BarbaraCristinaNunes/poll-manager"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Poll Manager on GitHub <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <aside class="specimen-plate" aria-label="Resumo da infraestrutura">
+            <div class="plate-meta">
+              <span>Nº 08+</span>
+            </div>
+            <div class="botanical-study" aria-hidden="true">
+              <span class="stem"></span>
+              <span class="leaf leaf-one"></span>
+              <span class="leaf leaf-two"></span>
+              <span class="leaf leaf-three"></span>
+              <span class="leaf leaf-four"></span>
+              <span class="node node-one">https</span>
+              <span class="node node-two">auth</span>
+              <span class="node node-three">data</span>
+            </div>
+            <div class="plate-caption">
+              <span>Fig. 01</span>
+              <p>
+                Independent services coexisting within a controlled, protected, and
+                reproducible network.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="summary-strip" aria-label="Resumo do projeto">
+        <div class="container summary-grid">
+          <div>
+            <span class="summary-number">8+</span>
+            <p>running containers</p>
+          </div>
+          <div>
+            <span class="summary-number">5+</span>
+            <p>public services</p>
+          </div>
+          <div>
+            <span class="summary-number">HTTPS</span>
+            <p>at all external access points</p>
+          </div>
+          <div>
+            <span class="summary-number">1</span>
+            <p>private database</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-section section container" id="projeto">
+        <div class="section-heading">
+          <div>
+            <h2>Self-hosted setup</h2>
+          </div>
+          <p class="section-lead">
+            OThe goal is to build an infrastructure that is secure, useful, and explainable,
+            not merely accumulating services, but selecting tools that address real needs.
+          </p>
+        </div>
+
+        <div class="project-layout">
+          <div class="research-note">
+            <span class="note-label">Central issue</span>
+            <blockquote>
+              How can multiple services be kept accessible on the internet without losing control
+              over security, data, and maintenance?
+            </blockquote>
+            <p>
+              The solution is treated as a living system: each container has a specific function,
+              well-defined relationships, and only the necessary access.
+              A reverse proxy organizes incoming traffic, authentication provides protection, 
+              backups ensure preservation and versioning tracks evolution.
+            </p>
+          </div>
+
+          <div class="folder-card">
+            <div class="folder-header">
+              <span>repository structure</span>
+              <span>7 entries</span>
+            </div>
+            <pre aria-label="Estrutura de diretórios"><code><span>self-hosted/</span>
+├── applicatie/
+├── authenticatie/
+├── backup/
+├── poll-manager/
+<b>│   ├── client/
+│   └── server/</b>
+├── proxy-reverse/
+├── statische-pagina/
+└── README.md</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="services-section section" id="servicos">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="section-index">02 / catalog</p>
+              <h2>Essential services</h2>
+            </div>
+            <p class="section-lead">
+              Each component occupies a specific niche within the environment
+              and contributes to the stability of the whole.
+            </p>
+          </div>
+
+          <div class="service-list">
+            <article class="service-row">
+              <span class="service-index">01</span>
+              <div class="service-name">
+                <h3>Reverse proxy</h3>
+                <span>Infrastructure</span>
+              </div>
+              <p>
+                Distributes HTTPS traffic among public services and centralizes network ingress.
+              </p>
+              <code>proxy-reverse/</code>
+            </article>
+
+            <article class="service-row">
+              <span class="service-index">02</span>
+              <div class="service-name">
+                <h3>Authentication</h3>
+                <span>Security</span>
+              </div>
+              <p>
+                Protects applications and establishes an access layer in front of the services.
+              </p>
+              <code>authenticatie/</code>
+            </article>
+
+            <article class="service-row">
+              <span class="service-index">03</span>
+              <div class="service-name">
+                <h3>Static page</h3>
+                <span>Documentation</span>
+              </div>
+              <p>
+                Nginx image that documents the composition, the choices made, and the operation of the environment.
+              </p>
+              <code>statische-pagina/</code>
+            </article>
+
+            <article class="service-row">
+              <span class="service-index">04</span>
+              <div class="service-name">
+                <h3>Poll Manager</h3>
+                <span>Application + database</span>
+              </div>
+              <p>
+                An application designed for creating polls, recording votes, and tracking results.
+              </p>
+              <code>poll-manager/</code>
+            </article>
+
+            <article class="service-row">
+              <span class="service-index">05</span>
+              <div class="service-name">
+                <h3>Backup</h3>
+                <span>Resilience</span>
+              </div>
+              <p>
+                Strategy for preserving volumes and data, with documented and testable restoration.
+              </p>
+              <code>backup/</code>
+            </article>
+          </div>
+          <p class="catalog-note">
+            + três serviços adicionais escolhidos por utilidade pessoal, completando o mínimo de
+            oito containers.
+          </p>
+        </div>
+      </section>
+
+      <section class="application-section section container" id="aplicacao">
+        <div class="application-card">
+          <div class="app-copy">
+            <p class="section-index">03 / in-house application</p>
+            <h2>Poll Manager</h2>
+            <p class="app-subtitle">A voting system as an object of study.</p>
+            <p>
+              A full-stack application for creating polls, making them available for a set period,
+              and tracking votes. The project separates the client from the server and keeps 
+              the database isolated from the public internet.
+            </p>
+
+            <div class="technology-tags" aria-label="Tecnologias do Poll Manager">
+              <span>React</span>
+              <span>Material UI</span>
+              <span>Node.js</span>
+              <span>Sequelize</span>
+              <span>MariaDB</span>
+            </div>
+
+            <a
+              class="button outline-button"
+              href="https://github.com/BarbaraCristinaNunes/poll-manager"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Consult repository <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div class="data-study">
+            <div class="study-title">
+              <span>Data flow</span>
+              <span>Fig. 02</span>
+            </div>
+            <div class="data-flow" aria-label="Fluxo do Poll Manager">
+              <div class="data-node">
+                <small>Interface</small>
+                <strong>React client</strong>
+                <span>public</span>
+              </div>
+              <div class="flow-line"><span>request</span></div>
+              <div class="data-node">
+                <small>API</small>
+                <strong>Node server</strong>
+                <span>container</span>
+              </div>
+              <div class="flow-line"><span>Sequelize</span></div>
+              <div class="data-node private-node">
+                <small>Persistence</small>
+                <strong>MariaDB</strong>
+                <span>private network</span>
+              </div>
+            </div>
+            <p class="study-caption">
+              The database stores polls and options.
+              The API centralizes the operations for creating, querying, and tallying votes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="method-section section" id="metodo">
+        <div class="container method-layout">
+          <div class="method-intro">
+            <p class="section-index">04 / protocol</p>
+            <h2>Criteria for a good environment</h2>
+          </div>
+
+          <div class="requirements-grid">
+            <div class="requirement"><span>01</span><p>Hardware under my control</p></div>
+            <div class="requirement"><span>02</span><p>Public services via HTTPS</p></div>
+            <div class="requirement"><span>03</span><p>At least 8 containers</p></div>
+            <div class="requirement"><span>04</span><p>5 or more public routes</p></div>
+            <div class="requirement"><span>05</span><p>Bank on a private network</p></div>
+            <div class="requirement"><span>06</span><p>Centralized authentication</p></div>
+            <div class="requirement"><span>07</span><p>Recoverable backups</p></div>
+            <div class="requirement"><span>08</span><p>Versioned configuration</p></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-content">
+        <div>
+          <p class="footer-title">Self-hosted field lab</p>
+          <p>DevOps</p>
+        </div>
+        <a href="#inicio">Back to top ↑</a>
+      </div>
+    </footer>
+  </body>
+</html>
