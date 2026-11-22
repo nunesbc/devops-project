@@ -1,115 +1,97 @@
 # Poll manager
 
-Este projeto foi iniciado em 15/08/2022 e finalizado em 24/08/2022
-
-*Observação: Esse projeto foi testado em um computador que contém o sistema operacional Windows 10*
-## **Dependências**
+## **Dependencies**
 
 * npm: v 8.14.0
 * node v 16.14.2
-* MariaDB v 10.4.21
-
-*Observação: As informações de instalação do MariaDB encontram-se no site [MariaDB Foundation](https://mariadb.org/download/?t=mariadb&p=mariadb&r=10.9.2&os=windows&cpu=x86_64&pkg=msi&m=serverion). O MariaDB também pode ser intalado via [XAMPP](https://www.apachefriends.org/download.html)*
-
-----
-
-## **Instalação do projeto**
-
-### Passos para iniciar o back-end
-
-* Após clonar este repositório, vá para a pasta server (`cd server`) e rode `npm install` para instalar as dependências.
-
-* Altere as informações de configuração relacionadas ao banco de dados com os seus dados na chave `development` localizada no arquivo `config/config.json`.
-
-* Crie um banco de dados no seu servidor e coloque o nome do mesmo no arquivo `config/config.json`.
-
-* Rode `npx sequelize-cli db:migrate` para criar as tabelas Polls e Options no banco de dados/
-
-* Rode `node server` para iniciar o back-end
-
-### Passos para iniciar o front-end
-* Após clonar este repositório, vá para a pasta client (`cd client`) e rode `npm install` para instalar as dependências.
-
-* Rode `npm start` para iniciar o front-end
-
+* cors: "^2.8.5",
+* dotenv: "^18.0.10",
+* express: "^4.18.1",
+* mysql2: "^3.24.6",
+* sequelize: "^6.21.3"
 
 ----
-## **Projeto do back-end**
 
-O projeto do back-end encontra-se na pasta `server` e foi desenvolvido em Node.js. O ORM Sequelize foi utilizado para gerenciar o banco de dados.
+## **Project Installation**
 
-### *Pasta models*
+### Steps to start the back-end
 
-Na pasta models você encontra os arquivos options.js e polls.js. Esses arquivos representam as tabelas que foram criadas para esse projeto.
+1. After cloning this repository, navigate to the `server` directory (`cd server`) and run `npm install` to install the dependencies.
 
-Na classe Polls existe o método `getPollStatus()` que verifica se o momento atual corresponde ou não ao intervalo em que a enquete estaria ativa. Esse método retorna um objeto contendo o status da enquete (string) e se ela está ou não ativa (dado boleano) sempre que a mesma é instanciada.  O objeto retornado por esse método é salvo na variável **status** da enquete. 
+2. Update the database configuration settings with your credentials under the `development` key located in the `config/config.json` file.
 
-> A variável **status** é uma variável virtual dinâmica que exite apenas em polls.js. Não existe uma coluna na tabela polls para essa variável.
+3. Rub `npx sequelize-cli db:create` to create the database
 
-### *crud.js*
+4. Run `npx sequelize-cli db:migrate` to create the `Polls` and `Options` tables in the database.
 
-Os métodos responsáveis por *mostrar, criar, deletar e alterar* os dados das tabelas estão no arquivo crud. 
+5. Run `node server` to start the back-end.
 
-O método `updateOptionScore()` contabiliza os votos que cada opção de uma enquete recebe. Essa função incrementa o score da opção sempre que é chamada utilizando o  método `increment() `do sequelize. Você pode ler mais sobre a função incremente [aqui](https://sequelize.org/docs/v6/core-concepts/model-instances/)
+### Steps to start the front-end
+1. After cloning this repository, navigate to the `client` directory (`cd client`) and run `npm install` to install the dependencies.
+2. Run `npm start` to start the front-end.
 
-> Embora os métodos `deletePoll()`, `updatePoll()` e `deleteOption()` estejam no crud.js e funcionando, não são métodos utilizados no fron-end. Portanto, não foram escritos endpoints para os mesmos. 
+---
 
-### *server.js*
+## Back-end Project
+The back-end project is located in the `server` folder and was developed using Node.js. The **Sequelize ORM** was used to manage the database.
 
-No server estão todos os endpoints que ligam o front-end com as funções do crud.js.
+### `models` folder
+In the `models` folder, you will find `options.js` and `polls.js`. These files represent the database tables created for this project.
 
-------------
-## **Projeto do front-end**
+In the `Polls` class, there is a `getPollStatus()` method that verifies whether the current time falls within the active period of the poll. Whenever instantiated, this method returns an object containing the status of the poll (string) and whether it is active (boolean). The object returned by this method is saved in the **`status`** variable of the poll.
 
-O projeto do front-end encontra-se na pasta `client`. O front-end foi desenvolvido em React.js e Material UI, pois são bibliotecas que facilitam o desenvolvimento de aplicações responsivas, que são ideais para uso mobile. 
-### *Pasta src/components*
+> *The **`status`** variable is a dynamic virtual variable that exists only in `polls.js`. No actual database column exists in the `polls` table for this variable.*
 
-* NavBar.js => É o componente da barra de navegação
+### `crud.js`
+The methods responsible for **displaying, creating, deleting, and updating** table data are located in the `crud` file.
 
-* Operations.js => É um arquivo onde estão alguns métodos que são utilizados nos componentes do projeto
+The `updateOptionScore()` method counts the votes received by each option in a poll. This function increments the option score whenever invoked using Sequelize's `increment()` method. You can read more about the increment function on [Sequelize Documentation](https://sequelize.org/docs/v6/core-concepts/model-instances/).
 
-* PollsPainel.js => O gerenciamento do que será mostrato para o usuário ocorre nete arquivo. O componente PollsPainel mostra o formulário de criação de nova enquete, uma enquete específica ou todas as enquetes, que são mostradas de acordo com a paginação.
+> *Although the `deletePoll()`, `updatePoll()`, and `deleteOption()` methods are fully functional inside `crud.js`, they are not used in the front-end. Therefore, no API endpoints were created for them.*
 
-* /polls => Nessa pasta encontram-se os componentes que estruturam as enquetes.
+### `server.js`
+`server.js` contains all API endpoints connecting the front-end interface with the backend functions in `crud.js`.
 
-* /createPoll => Nessa pasta encontram-se os componentes que estruturam o formulário de criar nova enquete.
+---
 
-### *Pasta src/components/polls*
+## Front-end Project
+The front-end project is located in the `client` folder. It was developed using **React.js** and **Material UI**, as these libraries facilitate building responsive applications ideal for mobile devices.
 
-* AllPolls.js => Este componente mostra o título de todas as enquetes que existem no banco de dados e é onde o usuário seleciona qual enquete deseja ver.
+### `src/components` folder
+* **`NavBar.js`**: The navigation bar component.
+* **`Operations.js`**: File containing utility functions used across various project components.
+* **`PollsPainel.js`**: Manages what is displayed to the user. The `PollsPainel` component shows the form for creating a new poll, a specific poll, or all polls based on pagination.
+* **`/polls`**: Directory containing the components that structure poll displays.
+* **`/createPoll`**: Directory containing the components that structure the poll creation form.
 
-### *src/components/polls/components/Poll.js* 
+### `src/components/polls` folder
+* **`AllPolls.js`**: Displays titles of all existing polls in the database and allows users to select which poll to view.
 
-Este componente mostra as informações de uma enquete específica e utiliza o componente Option.js.
+### `src/components/polls/components/Poll.js`
+Displays details of a specific poll and utilizes the `Option.js` component.
 
-### *src/components/polls/components/Option.js* 
+### `src/components/polls/components/Option.js`
+Represents a single option within a poll. A `.map()` iteration is run inside `Poll` to render all options for that poll. Options are displayed as checkboxes, accessible for user interaction only if the poll is active and the user has not voted yet.
 
-Este componente representa uma unica opção de uma enquete. Portanto um `.map()` é realizado em Poll para mostrar todas as opções de uma enquete. Aqui as opções são representadas em checkboxs que estão disponíveis para interação do usuário apenas se a enquete estiver ativa e se o usuário ainda não tiver votado.
+The user's vote is saved in `localStorage` whenever they vote on a poll. The vote is stored as an object containing the ID of the selected option and the poll ID to which it belongs.
 
-O voto do usuário é salvo no `localStorage` sempre que o mesmo vota em uma enquete. O voto é salvo como um objeto que contem o id da opção selecionada e da enquete à qual a opção pertence. 
+> *The entire project was designed to simulate a voting system where each user can vote only once per poll. Votes are saved in `localStorage` to eliminate the need for storing registered user accounts in the database.*
 
-> Todo o projeto foi pensado para simular um sistema de votação cujo usuário pode votar apenas uma vez em cada enquete. O voto do mesmo é salvo no `localStorage` para que não seja necessário manter um cadastro de usuários no banco de dados. 
+* **Note 1**: To convert the application into an open voting system where users can vote unlimited times, remove or comment out the vote-saving logic in `localStorage`, clear existing storage with `localStorage.clear()`, and disable the vote-check logic.
+* **Note 2**: Users can vote multiple times if using incognito/private browser sessions because data generated in private windows is not permanently stored in `localStorage`.
 
-*Observação 1: Para tornar o projeto em um sistema de votação no qual o usuário pode votar quantas vezes quiser em qualquer enquete é necessário retirar ou comentar o código que salva o voto no `localstorage`,  limpar o mesmo usando o método `localStorage.clear()` e desativar o código checa se a enquete já foi ou não votada.*
+Votes are verified using the `checkVote()` method from `Operations.js`. The output is used across several components:
+* **`AllPolls.js`**: Informs the user if they have already voted on a poll.
+* **`Poll.js`**: Checks if a user has voted on a specific poll and disables voting controls if true.
+* **`Option.js`**: Identifies which option was voted for and keeps it selected.
 
-*Observação 2: O usuário poderá votar em uma enquete mais de uma vez caso esteja usando uma sessão anônima, pois os dados gerados neste cenário não são salvos permanentemente no localStorage.*
+> *This component also includes a `setInterval()` timer that calls `getOptionsByPollId()` to retrieve options every minute. This allows fetching score data and showing live total vote counts in real time.*
 
+### `src/components/createPoll/CreatePoll.js`
+The form component for creating new polls, utilizing `PollDate.js` and `SavePoll.js`.
 
-O voto é checado pelo método `checkVote()` do Operations.js. A resposta desse método é utilizada nos componentes:
+`CreatePoll.js` gathers all required information for a poll and passes it to the `SavePoll` component.
 
-* AllPolls.js => Para informar ao usuário que ele já votou na enquete.
+The `SavePoll` component contains a button invoking `createPoll()` and `createOption()` from `crud.js`. These functions save the new poll and options to the database.
 
-* Poll.js => Para verificar se o usuário votou em uma enquete específica e desabilitar a mesma caso o usuário tenha votado.
-
-* Option.js => Para verificar qual opção foi votada e mantê-la como selecionada.
-
-> Nesse componente também existe um `setInterval()` que utiliza a função `getOptionsByPollId()` para retorna todas as opções de uma enquete. O objetivo aqui é acessar os dados das opções a cada minuto e mostrar o score e o total de votos de uma enquete em tempo real.
-
-### *src/components/creaatePoll/CreatePoll.js* 
-
-Este componente é o formulário de criação de novas enquetes. Ele utiliza os componentes PollDate.js e SavePoll.js.
-
-Create.Poll.js contém todas as informações necessárias para fazer uma enquete e as envia para o componente `SavePoll`. 
-O componente `SavePoll` é um botão que chama os métodos `createPoll()` e `createOption()` do crud.js. Esse métodos são responsáveis por criar uma nova enquete e uma nova opção no banco de dados.
-
-O botão de criar do componente SavePoll fica habilitado apenas quando não existem variáveis vazias em CreatePoll.js. Essa verificação é feita pela função `checkNewPollData()` do arquivo Operations.js. Dessa forma é garantido que nenhuma coluna das tabelas polls e options fique em branco/vazias.
+The submission button in `SavePoll` is enabled only when no fields in `CreatePoll.js` are left empty. Validation is handled by `checkNewPollData()` in `Operations.js`, ensuring no empty rows are created in the database tables.
