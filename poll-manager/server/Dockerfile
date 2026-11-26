@@ -1,0 +1,12 @@
+# Base Image
+FROM node:14-alpine
+
+WORKDIR /usr/app
+# install dependencies
+COPY ./package.json ./
+RUN npm install
+COPY ./ ./
+
+# Default command
+CMD ["sh", "-c", "npx sequelize-cli db:create || true && npx sequelize-cli db:migrate && node server.js"]
+EXPOSE 3000
